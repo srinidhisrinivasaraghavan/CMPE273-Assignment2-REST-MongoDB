@@ -1,0 +1,75 @@
+/**
+ * is the build for hello-world spring boot app
+ *
+ * @author srinidhis
+ * @since 1.0
+ */
+buildscript {
+    repositories {
+            maven { url "http://repo.spring.io/snapshot" }
+            maven { url "http://repo.spring.io/milestone" }
+            maven { url "http://repo.spring.io/release" }
+        mavenCentral()
+            mavenLocal()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.1.6.RELEASE")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'scala'
+apply plugin: 'eclipse'
+apply plugin: 'eclipse-wtp'
+apply plugin: 'idea'
+apply plugin: 'spring-boot'
+
+jar {
+
+    version =  '0.1.0'
+}
+sourceCompatibility = 1.5
+version = '1.0'
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'Wallet',
+                   'Implementation-Version': '1.0'
+    }
+}
+
+bootRepackage {
+    mainClass = 'main.scala.UserController'
+}
+
+repositories {
+    mavenCentral()
+    maven { url "http://repo.spring.io/snapshot" }
+    maven { url "http://repo.spring.io/milestone" }
+    maven { url "http://repo.spring.io/release" }
+ }
+
+dependencies {
+compile 'com.github.mlaccetti:etcd-client:0.1.1'
+	compile 'javax.validation:validation-api:1.0.0.GA'
+    compile("com.fasterxml.jackson.core:jackson-core")
+    compile("com.fasterxml.jackson.core:jackson-annotations")
+    compile("com.fasterxml.jackson.core:jackson-databind")
+    compile("com.fasterxml.jackson.datatype:jackson-datatype-joda")
+    compile("com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:2.3.3")
+    compile 'org.slf4j:slf4j-api:1.7.5'
+	compile 'javax.persistence:persistence-api:1.0'
+	compile("org.springframework.boot:spring-boot-starter-web")
+	compile 'org.codehaus.jackson:jackson-mapper-asl:1.9.12'
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+    compile("org.scala-lang:scala-library:2.11.2")
+    compile("org.webjars:bootstrap:3.1.1")
+    testCompile("junit:junit")
+    
+}
+
+
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.1'
+}
+                                   
